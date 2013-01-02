@@ -1,6 +1,10 @@
 action :speak do
   require 'hipchat'
   begin
+    token    = @new_resource.token    || node[:hipchat][:api_token]
+    room     = @new_resource.room     || node[:hipchat][:room]
+    nickname = @new_resource.nickname || node[:hipchat][:nickname]
+
     client = HipChat::Client.new(@new_resource.token)
 
     message = @new_resource.message || @new_resource.name
