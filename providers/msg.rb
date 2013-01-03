@@ -5,14 +5,14 @@ action :speak do
     room     = @new_resource.room     || node[:hipchat][:room]
     nickname = @new_resource.nickname || node[:hipchat][:nickname]
 
-    client = HipChat::Client.new(@new_resource.token)
+    client = HipChat::Client.new(token)
 
     message = @new_resource.message || @new_resource.name
 
-    client[@new_resource.room].send(@new_resource.nickname,
-                                    message,
-                                    :notify => @new_resource.notify,
-                                    :color => @new_resource.color)
+    client[room].send(nickname,
+                      message,
+                      :notify => @new_resource.notify,
+                      :color => @new_resource.color)
 
   rescue => e
       if @new_resource.failure_ok
